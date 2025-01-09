@@ -14,20 +14,28 @@ import { editPost } from "@/features/post/postSlice";
 import { useAppSelector } from "@/hooks/hook-redux";
 import { getPostByIDService } from "@/services/postService";
 import { API_URL } from "@/services/apiService";
+import { getCategory } from "@/features/category/categorySlice";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 const schema = z.object({
   title: z.string().min(6, "Tiêu đề phải có ít nhất 6 ký tự"),
   description: z.string().min(100, "Bài viết phải có ít nhất 100 ký tự"),
   author: z.string().min(1, "Người viết phải có ít nhất 1 ký tự"),
   status: z.boolean(),
   categoryId: z
-    .string()
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+    .number({
       message: "Category ID phải là một số nguyên hợp lệ và lớn hơn 0",
     })
     .transform((val) => Number(val)),
 });
 export default function PostEdit() {
   const { loading } = useAppSelector((state) => state.post);
+  const { data } = useAppSelector((state) => state.category);
   const [valueEditor, setValueEditor] = useState("");
   const { pathname } = useLocation();
   const idPost = pathname.split("/")[3];
@@ -35,6 +43,11 @@ export default function PostEdit() {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
+  const [category, setCategory] = useState({
+    id: null,
+    name: "",
+    slug: "",
+  });
   const {
     register,
     handleSubmit,
@@ -45,8 +58,9 @@ export default function PostEdit() {
   });
 
   useEffect(() => {
+    dispatch(getCategory());
     setValue("description", valueEditor);
-  }, [setValue, valueEditor]);
+  }, [dispatch, setValue, valueEditor]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -59,7 +73,8 @@ export default function PostEdit() {
         setValue("description", resData.data.message.description);
         setValue("status", resData.data.message.status);
         setValueEditor(resData.data.message.description);
-        setValue("categoryId", resData.data.message.categoryId);
+        setValue("categoryId", Number(resData.data.message.categoryId));
+        setCategory(resData.data.message.category);
         setValue("author", resData.data.message.author);
       } catch (error) {
         console.log(error);
@@ -77,11 +92,12 @@ export default function PostEdit() {
       formData.append("description", valueEditor);
       formData.append("categoryId", Number(data.categoryId));
       formData.append("status", Number(data.status));
+      formData.append("outstanding", Number(data.outstanding));
       formData.append("author", data.author);
 
       const response = await dispatch(editPost({ id: idPost, post: formData }));
       if (response.error) {
-        Swal.fire({
+        return Swal.fire({
           title: "Error",
           text: response.payload,
           icon: "error",
@@ -108,7 +124,11 @@ export default function PostEdit() {
       setPreview(previewUrl);
     }
   };
-
+  const handleChange = (e) => {
+    const findById = data.find((item) => item.name == e);
+    setValue("categoryId", findById.id);
+    setCategory(findById);
+  };
   return (
     <div className="content-scroll overflow-y-auto px-2 sm:px-10 xl:max-h-[85vh] xl:min-h-[85vh]">
       <form
@@ -133,11 +153,18 @@ export default function PostEdit() {
             )}
           </div>{" "}
           <div className="col-span-1">
-            <Input
-              placeholder="Enter categoryId"
-              {...register("categoryId")}
-              type="text"
-            ></Input>
+            <Select onValueChange={handleChange}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder={category.name} />
+              </SelectTrigger>
+              <SelectContent>
+                {data.map((item) => (
+                  <SelectItem value={item.name} key={item.id}>
+                    {item.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             {errors.categoryId && (
               <p className="text-red-500">{errors.categoryId.message}</p>
             )}

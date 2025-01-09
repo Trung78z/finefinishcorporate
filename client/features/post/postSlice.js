@@ -35,7 +35,7 @@ export const getPostID = createAsyncThunk(
       }
       return rejectWithValue("An unexpected error occurred");
     }
-  },
+  }
 );
 
 export const addComment = createAsyncThunk(
@@ -54,7 +54,7 @@ export const addComment = createAsyncThunk(
       }
       return rejectWithValue("An unexpected error occurred");
     }
-  },
+  }
 );
 export const addPost = createAsyncThunk(
   "post/create",
@@ -72,7 +72,7 @@ export const addPost = createAsyncThunk(
       }
       return rejectWithValue("An unexpected error occurred");
     }
-  },
+  }
 );
 
 export const editPost = createAsyncThunk("post/EditData", async (post) => {});
@@ -93,7 +93,7 @@ export const deletePost = createAsyncThunk(
       }
       return rejectWithValue("An unexpected error occurred");
     }
-  },
+  }
 );
 
 export const postSlice = createSlice({
@@ -128,6 +128,7 @@ export const postSlice = createSlice({
     });
     builder.addCase(getPost.fulfilled, (state, action) => {
       state.loading = false;
+
       state.data = action.payload;
     });
     builder.addCase(getPost.rejected, (state, action) => {
@@ -153,7 +154,7 @@ export const postSlice = createSlice({
     builder.addCase(editPost.fulfilled, (state, action) => {
       state.loading = false;
       const index = state.data.findIndex(
-        (post) => post.id === action.payload.id,
+        (post) => post.id === action.payload.id
       );
       if (index !== -1) state.data[index] = action.payload;
     });

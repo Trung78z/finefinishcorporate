@@ -27,9 +27,8 @@ export default function Post() {
 
   const handleDeletePost = async (id) => {
     try {
-      console.log(id);
       const res = await dispatch(deletePost(id));
-      console.log(res);
+
       if (res.error) {
         return Swal.fire({
           title: "Có lỗi xảy ra!",
@@ -72,10 +71,17 @@ export default function Post() {
   };
 
   const handleChangeStatus = async (data) => {
-    console.log(data);
+    data = { ...data, status: data.status == false ? true : false };
     try {
-      const res = await dispatch(editPost({ id: data.id, post: data }));
-      console.log(res);
+      await dispatch(editPost({ id: data.id, post: data }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleChangeOutstanding = async (data) => {
+    data = { ...data, outstanding: data.outstanding == false ? true : false };
+    try {
+      await dispatch(editPost({ id: data.id, post: data }));
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +93,7 @@ export default function Post() {
     navigate(`/posts/comment/${id}`);
   };
   return (
-    <div className="space-y-4 px-2 sm:px-10">
+    <div className="space-y-4 p-4 sm:p-4">
       <div className="content-scroll overflow-y-auto xl:max-h-[78vh] 2xl:max-h-[78vh] 2xl:min-h-[78vh]">
         <Table className="max-h-[100vh] min-w-full bg-background">
           <TableHeader>
@@ -96,6 +102,7 @@ export default function Post() {
               <TableHead>Title</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Public</TableHead>
+              <TableHead>Outstanding</TableHead>
               <TableHead>Body</TableHead>
               <TableHead>UpdatedAt</TableHead>
               <TableHead>Action</TableHead>
@@ -116,8 +123,16 @@ export default function Post() {
                     />
                   </button>
                 </TableCell>
+                <TableCell>
+                  <button onClick={() => handleChangeOutstanding(item)}>
+                    <input
+                      type="checkbox"
+                      checked={item.outstanding}
+                      className="form-checkbox h-4 w-4 cursor-pointer rounded-lg border-gray-400 bg-gray-200 text-green-500 transition duration-200 ease-in-out focus:ring-2 focus:ring-green-400"
+                    />
+                  </button>
+                </TableCell>
                 <TableCell>{formatContent(item.description, 40)}</TableCell>
-
                 <TableCell>
                   {new Date(item.updatedAt).toLocaleString("vi-VN")}
                 </TableCell>

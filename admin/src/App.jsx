@@ -13,9 +13,9 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/dang-nhap" element={<Login />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/dang-nhap" element={<Login />} />
           <Route path="/posts" element={<Post />} />
           <Route path="/posts/add" element={<PostAdd />} />
           <Route path="/posts/edit/:id" element={<PostEdit />} />

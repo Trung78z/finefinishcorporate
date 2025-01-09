@@ -3,7 +3,6 @@ import {
   addPostService,
   deletePostService,
   getPostService,
-  getPostIDService,
   editPostService,
   getPostByIDService,
 } from "../../services/postService";
@@ -34,7 +33,7 @@ export const addComment = createAsyncThunk(
   async (comment, { rejectWithValue }) => {
     try {
       const res = await addCommentService(comment);
-      console.log(res.data);
+
       return res.data.message;
     } catch (error) {
       if (
@@ -50,7 +49,7 @@ export const addComment = createAsyncThunk(
 );
 export const addPost = createAsyncThunk(
   "post/create",
-  async ({ post }, { rejectWithValue }) => {
+  async (post, { rejectWithValue }) => {
     try {
       const res = await addPostService(post);
       return res.data.message;
@@ -70,7 +69,6 @@ export const addPost = createAsyncThunk(
 export const editPost = createAsyncThunk(
   "post/EditData",
   async ({ id, post }, { rejectWithValue }) => {
-    console.log(id, post);
     try {
       const res = await editPostService(id, post);
       return res.data.message;

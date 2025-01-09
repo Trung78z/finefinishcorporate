@@ -35,7 +35,7 @@ export const getPostByTitleAndCategory = async (req: Request, res: Response) => 
   }
 };
 
-export const addPost = async (req: Request, res: Response): Promise<void> => {
+export const addPost = async (req: Request, res: Response) => {
   try {
     const { title, description, author, categoryId } = req.body;
 
@@ -80,9 +80,9 @@ export const addPost = async (req: Request, res: Response): Promise<void> => {
 export const editPost = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
-    const {  title, description, author, categoryId, status } = req.body;
-    console.log(req.body)
-    let checkStatus = status === "true" ? false : true;
+    const { title, description, author, categoryId, status, outstanding } = req.body;
+    let checkStatus = status === "true" ? true : false;
+    let checkOutstanding = outstanding === "true" ? true : false;
     if (!id) {
       res.status(400).json({ success: false, message: "Thiếu trường id." });
       return;
@@ -113,9 +113,14 @@ export const editPost = async (req: Request, res: Response) => {
       return;
     }
 
+    if (outstanding === undefined || outstanding === null) {
+      res.status(400).json({ success: false, message: "Thiếu nổi bật bài viết." });
+      return;
+    }
+
     let updatedImage = req.file ? req.file.filename : null;
 
-    const updatedPost = await updatePost(id, title, updatedImage, description, author, Number(categoryId), checkStatus);
+    const updatedPost = await updatePost(id, title, updatedImage, description, author, Number(categoryId), checkStatus, checkOutstanding);
 
     res.status(200).json({ success: true, message: updatedPost });
   } catch (error: any) {

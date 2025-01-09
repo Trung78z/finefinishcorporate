@@ -26,9 +26,8 @@ export default function Contact() {
 
   const handleDeleteCategory = async (id) => {
     try {
-      console.log(id);
       const res = await dispatch(deleteMail(id));
-      console.log(res);
+
       if (res.error) {
         return Swal.fire({
           title: "Có lỗi xảy ra!",
@@ -66,7 +65,7 @@ export default function Contact() {
     }
   };
   return (
-    <div className="p-10">
+    <div className="p-4">
       <div className="max-h-[70vh] min-h-[70vh] overflow-y-auto">
         <Table className="min-w-full bg-background">
           <TableHeader>

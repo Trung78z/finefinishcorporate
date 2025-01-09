@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -14,14 +13,13 @@ import { useEffect } from "react";
 
 import Swal from "sweetalert2";
 
-import { deleteMail, getMail } from "@/features/mail/mailSlice";
 import { RiDeleteBin2Fill } from "react-icons/ri";
-import { getPostByIDService } from "@/services/postService";
+
 import { useLocation } from "react-router-dom";
 import { deleteComment, getPostID } from "@/features/post/postSlice";
 
 export default function PostComment() {
-  const { loading, dataID } = useAppSelector((state) => state.post);
+  const { dataID } = useAppSelector((state) => state.post);
   const { pathname } = useLocation();
   const idPost = pathname.split("/")[3];
   const dispatch = useAppDispatch();
@@ -33,7 +31,7 @@ export default function PostComment() {
   const handleDeleteComment = async (id) => {
     try {
       const res = await dispatch(deleteComment(id));
-      console.log(res);
+
       if (res.error) {
         return Swal.fire({
           title: "Có lỗi xảy ra!",
@@ -70,7 +68,7 @@ export default function PostComment() {
       console.error(error);
     }
   };
-  console.log(dataID);
+
   return (
     <div className="p-10">
       <div className="max-h-[70vh] min-h-[70vh] overflow-y-auto">

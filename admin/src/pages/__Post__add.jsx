@@ -12,13 +12,20 @@ import { z } from "zod";
 import { useDispatch } from "react-redux";
 import { addPost } from "@/features/post/postSlice";
 import { useAppSelector } from "@/hooks/hook-redux";
+import { getCategory } from "@/features/category/categorySlice";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 const schema = z.object({
   title: z.string().min(6, "Tiêu đề phải có ít nhất 6 ký tự"),
   description: z.string().min(6, "Bài viết phải có ít nhất 100 ký tự"),
   author: z.string().min(6, "Người viết phải có ít nhất 1 ký tự"),
   categoryId: z
-    .string()
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+    .number({
       message: "Category ID phải là một số nguyên hợp lệ và lớn hơn 0",
     })
     .transform((val) => Number(val)),
@@ -43,6 +50,7 @@ const schema = z.object({
 });
 export default function PostAdd() {
   const { loading } = useAppSelector((state) => state.post);
+  const { data } = useAppSelector((state) => state.category);
   const [valueEditor, setValueEditor] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,8 +65,10 @@ export default function PostAdd() {
   });
 
   useEffect(() => {
+    dispatch(getCategory());
     setValue("description", valueEditor);
-  }, [setValue, valueEditor]);
+  }, [dispatch, setValue, valueEditor]);
+
   const onSubmit = async (data) => {
     try {
       const formData = new FormData();
@@ -71,9 +81,8 @@ export default function PostAdd() {
       formData.append("author", data.author);
 
       const response = await dispatch(addPost(formData));
-      console.log(response);
       if (response.error) {
-        Swal.fire({
+        return Swal.fire({
           title: "Error",
           text: response.payload,
           icon: "error",
@@ -100,6 +109,11 @@ export default function PostAdd() {
     }
   };
 
+  const handleChange = (e) => {
+    const findById = data.find((item) => item.name == e);
+    setValue("categoryId", findById.id);
+  };
+
   return (
     <div className="content-scroll overflow-y-auto px-2 sm:px-10 xl:max-h-[85vh] xl:min-h-[85vh]">
       <form
@@ -124,11 +138,18 @@ export default function PostAdd() {
             )}
           </div>{" "}
           <div className="col-span-1">
-            <Input
-              placeholder="Enter categoryId"
-              {...register("categoryId")}
-              type="text"
-            ></Input>
+            <Select onValueChange={handleChange}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                {data.map((item) => (
+                  <SelectItem value={item.name} key={item.id}>
+                    {item.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             {errors.categoryId && (
               <p className="text-red-500">{errors.categoryId.message}</p>
             )}

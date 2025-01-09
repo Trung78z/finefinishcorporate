@@ -14,6 +14,7 @@ model posts {
     image       String
     description String     @db.MediumText
     author      String
+    outstanding Boolean    @default(false)
     status      Boolean    @default(false)
     category    category?  @relation(fields: [categoryId], references: [id])
     categoryId  Int?

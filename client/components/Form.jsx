@@ -31,7 +31,6 @@ const Form = () => {
     resolver: zodResolver(formSchema),
   });
   const onSubmit = async (data) => {
-    console.log(data);
     setLoading(true);
     try {
       const resData = await postMailService(data);
@@ -125,7 +124,7 @@ const Form = () => {
         className="flex max-w-[166px] items-center gap-x-1"
         disabled={loading}
       >
-        Let's Talk
+        Liên Hệ Ngay
         <ArrowRightIcon size={20} />
       </Button>
     </form>

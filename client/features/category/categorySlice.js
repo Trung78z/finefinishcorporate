@@ -19,7 +19,7 @@ export const getCategoryID = createAsyncThunk(
   async (category) => {
     const res = await getCategoryIDService(category);
     return res.data.message.posts;
-  },
+  }
 );
 
 export const categorySlice = createSlice({

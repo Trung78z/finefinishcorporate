@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import RootRouter from "./routes";
 import { logger } from "./logger";
@@ -15,12 +15,13 @@ app.use(
       "http://localhost:4000",
       "http://localhost:3000",
       "http://localhost:4173",
+      "http://web.com:5173"
     ],
     credentials: true,
     optionsSuccessStatus: 200,
   })
 );
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

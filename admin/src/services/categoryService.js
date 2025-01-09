@@ -13,7 +13,6 @@ export const postCategoryService = async (data) => {
 };
 
 export const putCategoryService = async (id, data) => {
-  console.log(id, data);
   return await apiClient.put(`/categories/${id}`, data);
 };
 

@@ -16,7 +16,7 @@ export default function page() {
   const category = pathname.split("/")[3];
   const navigate = useRouter();
   const { loading, data, dataID, error } = useAppSelector(
-    (state) => state.post,
+    (state) => state.post
   );
   const dispatch = useAppDispatch();
 
@@ -97,6 +97,7 @@ export default function page() {
                   </li>
                 </ul>
               </div>
+              <hr />
               <div
                 className="space-y-3"
                 dangerouslySetInnerHTML={{ __html: dataID?.description }}

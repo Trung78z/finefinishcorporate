@@ -5,8 +5,8 @@ export const posts = async () => {
   const data = await prisma.posts.findMany({ include: { category: true, comments: true } });
   return data;
 };
-export const postID = async (id:string) => {
-  const data = await prisma.posts.findUnique( {where:{id}, include: { category: true, comments: true } });
+export const postID = async (id: string) => {
+  const data = await prisma.posts.findUnique({ where: { id }, include: { category: true, comments: true } });
   return data;
 };
 export const findPost = async (slug: string, categoryName: string) => {
@@ -37,7 +37,7 @@ export const createPost = async (title: string,
       author, slug,
 
       categoryId
-    },include:{category:true}
+    }, include: { category: true }
   });
   return data;
 };
@@ -48,7 +48,8 @@ export const updatePost = async (
   image: string | null, description: string,
   author: string,
   categoryId: number,
-  status:boolean,
+  status: boolean,
+  outstanding: boolean
 ) => {
   const exists = await prisma.posts.findUnique({ where: { id } });
   if (!exists) throw new Error("Post not found");
@@ -66,7 +67,8 @@ export const updatePost = async (
       status,
       author,
       categoryId,
-    },include:{category:true}
+      outstanding
+    }, include: { category: true }
   });
 
   return data;

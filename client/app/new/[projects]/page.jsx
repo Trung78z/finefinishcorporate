@@ -13,7 +13,6 @@ const Projects = () => {
     dispatch(getCategoryID(pathname));
   }, [dispatch]);
 
-  console.log(data);
   return (
     <section className="min-h-screen pt-12">
       <div className="container mx-auto">

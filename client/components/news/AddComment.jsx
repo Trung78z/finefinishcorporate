@@ -30,7 +30,7 @@ export default function AddComment({ postId }) {
   const onSubmit = async (data) => {
     try {
       const res = await dispatch(addComment({ ...data, postId: postId }));
-      console.log(res);
+
       if (res.error) {
         return Swal.fire({
           title: "Có lỗi xảy ra!",

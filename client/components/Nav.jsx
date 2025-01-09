@@ -5,11 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // framer motion
-import { motion, useScroll } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "@/hooks/hook-redux";
+import { motion } from "framer-motion";
+
 import { useEffect, useState } from "react";
-import { getCategory } from "@/features/category/categorySlice";
-import axios from "axios";
+
 import { apiClient } from "@/services/apiService";
 const link1 = { path: "/", name: "home" };
 const link3 = { path: "/contact", name: "contact" };

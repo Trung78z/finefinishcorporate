@@ -3,15 +3,15 @@ import { createSlug } from "../utils/coverSlug";
 
 
 export const findCategories = async () => {
-    const data = await prisma.category.findMany({ include: { posts: true } });
+    const data = await prisma.category.findMany();
     return data;
 };
 
 export const findCategoryByName = async (slug: string) => {
 
     const data = await prisma.category.findUnique({
-        where: { slug },
-        include: { posts: { include: { category: true } } },
+        where: { slug, },
+        include: { posts: { where: { status: true }, include: { category: true } } },
     });
     if (!data) throw new Error("Category not found!");
     return data;
