@@ -2,7 +2,7 @@ import prisma from "../configs/db";
 import { createSlug } from "../utils/coverSlug";
 
 export const posts = async () => {
-  const data = await prisma.posts.findMany({ include: { category: true, comments: true } });
+  const data = await prisma.posts.findMany({ include: { category: true, comments: true, }, orderBy: { createdAt: 'desc' } });
   return data;
 };
 export const postID = async (id: string) => {

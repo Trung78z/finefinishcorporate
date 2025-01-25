@@ -3,9 +3,9 @@ import path from "path";
 import fs from "fs"
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-const uploadPath = path.join(__dirname, '..','..', 'public', 'images');
-     if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath); 
+    const uploadPath = path.join(__dirname, '..', '..', 'public', 'images');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath);
     }
     cb(null, uploadPath);
   },
@@ -16,7 +16,7 @@ const uploadPath = path.join(__dirname, '..','..', 'public', 'images');
 });
 export const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 },
+  limits: { fileSize: 1024 * 1024 * 20 },
   fileFilter: (req, file, cb) => {
     const filetypes = /jpeg|jpg|png/;
     const mimetype = filetypes.test(file.mimetype);

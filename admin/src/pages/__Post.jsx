@@ -162,7 +162,7 @@ export default function Post() {
           <TableFooter>
             <TableRow>
               <TableCell colSpan={6}>Total</TableCell>
-              <TableCell className="text-right">100 Bài viết</TableCell>
+              <TableCell className="text-right">{data.length} Bài viết</TableCell>
             </TableRow>
           </TableFooter>
         </Table>
