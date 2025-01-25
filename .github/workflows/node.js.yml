@@ -19,7 +19,6 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-<<<<<<< HEAD
       - uses: actions/checkout@v4
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
@@ -43,28 +42,3 @@ jobs:
           tmux kill-session -t client
           tmux new-session -d -s client 'npm start'
           EOF
-=======
-    - uses: actions/checkout@v4
-    - name: Install sshpass
-      run: sudo apt-get update && sudo apt-get install -y sshpass
-      
-    - name: Deploy to VPS
-      env:
-        SSH_FINE_FINISH_PASSWORD: ${{ secrets.SSH_FINE_FINISH_PASSWORD }}
-        SSH_FINE_FINISH_USER: ${{ secrets.SSH_FINE_FINISH_USER }}
-        VPS_FINE_FINISH_HOST: ${{ secrets.VPS_FINE_FINISH_HOST }}
-      run: |
-        sshpass -p "${{ secrets.SSH_FINE_FINISH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_FINE_FINISH_USER }}@${{ secrets.VPS_FINE_FINISH_HOST }} -p 24700 << EOF
-        echo "Connected to VPS"
-        
-        
-        cd /root/app
-        git reset --hard HEAD
-        git pull
-        cd client
-        npm install
-        npm run build
-        tmux kill-session -t client
-        tmux new-session -d -s client 'npm start'
-        EOF
->>>>>>> 7b73d879d29a34e676256ce86d3785cd392d1669
