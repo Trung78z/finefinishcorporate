@@ -41,5 +41,5 @@ jobs:
         cd client
         npm install
         npm run build
-        npm start
+        tmux new-session -d -s client 'npm start'
         EOF
