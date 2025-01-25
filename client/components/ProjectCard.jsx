@@ -12,7 +12,7 @@ const ProjectCard = ({ project }) => {
         <div>
           <Link
             href={`/new/${project?.slug}/${project?.category?.slug}`}
-            className="bg-tertiary dark:bg-secondary/40 xl:bg-work_project_bg_light xl:dark:bg-work_project_bg_dark relative flex h-[300px] w-full items-center justify-center overflow-hidden xl:bg-[110%] xl:bg-no-repeat"
+            className="relative flex h-[200px] w-full items-center justify-center overflow-hidden bg-tertiary dark:bg-secondary/40 xl:bg-work_project_bg_light xl:bg-[110%] xl:bg-no-repeat xl:dark:bg-work_project_bg_dark"
           >
             <Image
               className="absolute bottom-0 shadow-2xl"
@@ -33,7 +33,7 @@ const ProjectCard = ({ project }) => {
           <h4 className="h4 mb-1">{project?.title}</h4>
         </Link>
         <p
-          className="text-muted-foreground text-lg"
+          className="text-lg text-muted-foreground"
           dangerouslySetInnerHTML={{
             __html: formatContent(project?.description, 60),
           }}

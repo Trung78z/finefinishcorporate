@@ -14,8 +14,8 @@ const Projects = () => {
   }, [dispatch]);
 
   return (
-    <section className="min-h-screen pt-12">
-      <div className="container mx-auto">
+    <section className="min-h-screen pt-12 dark:bg-background">
+      <div className="container mx-auto dark:bg-secondary/40">
         <h2 className="section-title mx-auto mb-8 text-center xl:mb-16">
           Tin tuc
         </h2>
@@ -26,7 +26,7 @@ const Projects = () => {
                 return <ProjectCard project={project} key={project.id} />;
               })
             ) : (
-              <div className="col-span-full rounded-md bg-gray-100 p-4 text-center font-bold text-red-500 shadow-md">
+              <div className="col-span-full rounded-md p-4 text-center font-bold text-red-500 shadow-md">
                 <p>
                   Hiện tại chưa có bài viết nào. Hãy quay lại sau hoặc thêm bài
                   viết mới!

@@ -48,21 +48,21 @@ const servicesData = [
 
 const Services = () => {
   return (
-    <section className="mb-12 xl:mb-36">
+    <section className="mb-12 dark:bg-background xl:mb-36">
       <div className="container mx-auto">
-        <h2 className="section-title mb-12 xl:mb-24 text-center mx-auto">
+        <h2 className="section-title mx-auto mb-12 text-center xl:mb-24">
           Dịch vụ của Fine Finish
         </h2>
         {/* grid items */}
-        <div className="grid xl:grid-cols-3 justify-center gap-y-12 xl:gap-y-24 xl:gap-x-8">
+        <div className="grid justify-center gap-y-12 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-24">
           {servicesData.map((item, index) => {
             return (
               <Card
-                className="w-full max-w-[424px] h-[300px] flex flex-col pt-16 pb-10 justify-center items-center relative"
+                className="relative flex h-[300px] w-full max-w-[424px] flex-col items-center justify-center pb-10 pt-16"
                 key={index}
               >
-                <CardHeader className="text-primary absolute -top-[60px]">
-                  <div className="w-[140px] h-[80px] bg-white dark:bg-background flex justify-center items-center">
+                <CardHeader className="absolute -top-[60px] text-primary">
+                  <div className="flex h-[80px] w-[140px] items-center justify-center bg-white dark:bg-background">
                     {item.icon}
                   </div>
                 </CardHeader>

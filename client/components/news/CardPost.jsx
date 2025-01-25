@@ -6,8 +6,11 @@ import React from "react";
 export default function CardPost({ item }) {
   return (
     <>
-      <div className="flex items-center gap-x-2">
-        <Link href={`/new/${item?.slug}/${item?.category?.slug}`}>
+      <div className="group-abc flex items-center gap-x-2 dark:bg-secondary/30">
+        <Link
+          href={`/new/${item?.slug}/${item?.category?.slug}`}
+          className="group-abc:hover:bg-slate-800"
+        >
           <img
             src={`${API_URL}/api/image/${item?.image}`}
             alt=""

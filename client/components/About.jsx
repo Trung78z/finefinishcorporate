@@ -108,14 +108,14 @@ const About = () => {
   };
 
   return (
-    <section className="xl:h-[860px] pb-12 xl:py-24">
+    <section className="pb-12 dark:bg-background xl:h-[860px] xl:py-24">
       <div className="container mx-auto">
-        <h2 className="section-title mb-8 xl:mb-16 text-center mx-auto">
+        <h2 className="section-title mx-auto mb-8 text-center xl:mb-16">
           Fine Finish
         </h2>
         <div className="flex flex-col xl:flex-row">
           {/* image */}
-          <div className="hidden xl:flex flex-1 relative">
+          <div className="relative hidden flex-1 xl:flex">
             <DevImg
               containerStyles="bg-about_shape_light dark:bg-about_shape_dark w-[505px] h-[505px] bg-no-repeat relative"
               imgSrc="/about/developer.svg"
@@ -124,7 +124,7 @@ const About = () => {
           {/* tabs */}
           <div className="flex-1">
             <Tabs defaultValue="personal">
-              <TabsList className="w-full grid xl:grid-cols-3 xl:max-w-[520px] xl:border dark:border-none">
+              <TabsList className="grid w-full dark:border-none xl:max-w-[520px] xl:grid-cols-3 xl:border">
                 <TabsTrigger className="w-[162px] xl:w-auto" value="personal">
                   Tầm Nhìn
                 </TabsTrigger>
@@ -139,12 +139,12 @@ const About = () => {
                 </TabsTrigger>
               </TabsList>
               {/* tabs content */}
-              <div className="text-lg mt-12 xl:mt-8">
+              <div className="mt-12 text-lg xl:mt-8">
                 {/* personal */}
                 <TabsContent value="personal">
                   <div className="text-center xl:text-left">
                     <h3 className="h3 mb-4">Tầm Nhìn Của Fine Finish</h3>
-                    <p className="subtitle max-w-xl mx-auto xl:mx-0">
+                    <p className="subtitle mx-auto max-w-xl xl:mx-0">
                       Trở thành nền tảng truyền thông hàng đầu, nơi kết nối và
                       thúc đẩy cộng đồng ngành hoàn thiện và xử lý bề mặt phát
                       triển bền vững, sáng tạo và hiệu quả. Fine Finish hướng
@@ -181,12 +181,12 @@ const About = () => {
                       Sứ Mệnh Của Fine Finish
                     </h3>
                     {/* experience & education wrapper */}
-                    <div className="grid md:grid-cols-2 gap-y-8">
+                    <div className="grid gap-y-8 md:grid-cols-2">
                       {/* experience */}
                       <div className="flex flex-col gap-y-6">
-                        <div className="flex gap-x-4 items-center text-[22px] text-primary">
+                        <div className="flex items-center gap-x-4 text-[22px] text-primary">
                           <Briefcase />
-                          <h4 className="capitalize font-medium">
+                          <h4 className="font-medium capitalize">
                             {getData(qualificationData, "experience").title}
                           </h4>
                         </div>
@@ -196,15 +196,15 @@ const About = () => {
                             (item, index) => {
                               const { company, role, years } = item;
                               return (
-                                <div className="flex gap-x-8 group" key={index}>
-                                  <div className="h-[84px] w-[1px] bg-border relative ml-2">
-                                    <div className="w-[11px] h-[11px] rounded-full bg-primary absolute -left-[5px] group-hover:translate-y-[84px] transition-all duration-500"></div>
+                                <div className="group flex gap-x-8" key={index}>
+                                  <div className="relative ml-2 h-[84px] w-[1px] bg-border">
+                                    <div className="absolute -left-[5px] h-[11px] w-[11px] rounded-full bg-primary transition-all duration-500 group-hover:translate-y-[84px]"></div>
                                   </div>
                                   <div>
-                                    <div className="font-semibold text-xl leading-none mb-2">
+                                    <div className="mb-2 text-xl font-semibold leading-none">
                                       {company}
                                     </div>
-                                    <div className="text-lg leading-none text-muted-foreground mb-4">
+                                    <div className="mb-4 text-lg leading-none text-muted-foreground">
                                       {role}
                                     </div>
                                     <div className="text-base font-medium">
@@ -213,15 +213,15 @@ const About = () => {
                                   </div>
                                 </div>
                               );
-                            }
+                            },
                           )}
                         </div>
                       </div>
                       {/* education */}
                       <div className="flex flex-col gap-y-6">
-                        <div className="flex gap-x-4 items-center text-[22px] text-primary">
+                        <div className="flex items-center gap-x-4 text-[22px] text-primary">
                           <GraduationCap size={28} />
-                          <h4 className="capitalize font-medium">
+                          <h4 className="font-medium capitalize">
                             {getData(qualificationData, "education").title}
                           </h4>
                         </div>
@@ -231,15 +231,15 @@ const About = () => {
                             (item, index) => {
                               const { university, qualification, years } = item;
                               return (
-                                <div className="flex gap-x-8 group" key={index}>
-                                  <div className="h-[84px] w-[1px] bg-border relative ml-2">
-                                    <div className="w-[11px] h-[11px] rounded-full bg-primary absolute -left-[5px] group-hover:translate-y-[84px] transition-all duration-500"></div>
+                                <div className="group flex gap-x-8" key={index}>
+                                  <div className="relative ml-2 h-[84px] w-[1px] bg-border">
+                                    <div className="absolute -left-[5px] h-[11px] w-[11px] rounded-full bg-primary transition-all duration-500 group-hover:translate-y-[84px]"></div>
                                   </div>
                                   <div>
-                                    <div className="font-semibold text-xl leading-none mb-2">
+                                    <div className="mb-2 text-xl font-semibold leading-none">
                                       {university}
                                     </div>
-                                    <div className="text-lg leading-none text-muted-foreground mb-4">
+                                    <div className="mb-4 text-lg leading-none text-muted-foreground">
                                       {qualification}
                                     </div>
                                     <div className="text-base font-medium">
@@ -248,7 +248,7 @@ const About = () => {
                                   </div>
                                 </div>
                               );
-                            }
+                            },
                           )}
                         </div>
                       </div>
@@ -263,8 +263,8 @@ const About = () => {
                     </h3>
                     {/* skills */}
                     <div className="mb-16">
-                      <h4 className="text-xl font-semibold mb-2">Kỹ Thuật</h4>
-                      <div className="border-b border-border mb-4"></div>
+                      <h4 className="mb-2 text-xl font-semibold">Kỹ Thuật</h4>
+                      <div className="mb-4 border-b border-border"></div>
                       {/* skill list */}
                       <div>
                         {getData(skillData, "skills").data.map(
@@ -272,24 +272,24 @@ const About = () => {
                             const { name } = item;
                             return (
                               <div
-                                className="w-2/4 text-center xl:text-left mx-auto xl:mx-0"
+                                className="mx-auto w-2/4 text-center xl:mx-0 xl:text-left"
                                 key={index}
                               >
                                 <div className="font-medium">{name}</div>
                               </div>
                             );
-                          }
+                          },
                         )}
                       </div>
                     </div>
                     Fine Finish
                     <div>
-                      <h4 className="text-xl font-semibold mb-2 xl:text-left">
+                      <h4 className="mb-2 text-xl font-semibold xl:text-left">
                         Kỹ Thuật Mạ
                       </h4>
-                      <div className="border-b border-border mb-4"></div>
+                      <div className="mb-4 border-b border-border"></div>
                       {/* tool list */}
-                      <div className="flex gap-x-8 justify-center xl:justify-start">
+                      <div className="flex justify-center gap-x-8 xl:justify-start">
                         {getData(skillData, "tools").data.map((item, index) => {
                           const { imgPath } = item;
                           return (

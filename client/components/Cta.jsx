@@ -3,10 +3,10 @@ import Link from "next/link";
 
 const Cta = () => {
   return (
-    <section className="py-24 bg-tertiary dark:bg-secondary/40">
+    <section className="bg-tertiary py-24 dark:bg-background">
       <div className="container mx-auto">
         <div className="flex flex-col items-center">
-          <h2 className="h4 max-w-xl text-center mb-8">
+          <h2 className="h4 mb-8 max-w-xl text-center">
             Fine Finish rất sẵn lòng lắng nghe ý kiến và đồng hành cùng cộng
             đồng trên hành trình phát triển trong ngành hoàn thiện và xử lý bề
             mặt kim loại. Đừng ngần ngại liên hệ với Fine Finish qua các kênh

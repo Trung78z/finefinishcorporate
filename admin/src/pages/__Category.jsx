@@ -100,18 +100,50 @@ export default function Category() {
 
   const handleDeleteCategory = async (id) => {
     try {
-      const res = await dispatch(deleteCategory(id));
+      // Display a confirmation dialog
+      const result = await Swal.fire({
+        title: "Bạn có chắc chắn muốn xóa?",
+        text: "Thao tác này không thể hoàn tác!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+      });
 
-      if (res.error) {
-        return Swal.fire({
-          title: "Có lỗi xảy ra!",
-          icon: "error",
-          text: res.payload,
+      // If the user confirms, proceed with the deletion
+      if (result.isConfirmed) {
+        const res = await dispatch(deleteCategory(id));
+
+        if (res.error) {
+          return Swal.fire({
+            title: "Có lỗi xảy ra!",
+            icon: "error",
+            text: res.payload,
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            background: "#f8d7da",
+            color: "#721c24",
+            position: "top-end",
+            toast: true,
+            customClass: {
+              popup: "animated bounceInUp",
+            },
+          });
+        }
+
+        // Success message
+        Swal.fire({
+          title: "Xóa thành công!",
+          icon: "success",
+          text: "Xóa category thành công!",
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          background: "#f8d7da",
-          color: "#721c24",
+          background: "#d4edda",
+          color: "#155724",
           position: "top-end",
           toast: true,
           customClass: {
@@ -119,21 +151,6 @@ export default function Category() {
           },
         });
       }
-      Swal.fire({
-        title: "Xóa thành công!",
-        icon: "success",
-        text: `Xóa category thành công!`,
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-        background: "#d4edda",
-        color: "#155724",
-        position: "top-end",
-        toast: true,
-        customClass: {
-          popup: "animated bounceInUp",
-        },
-      });
     } catch (error) {
       console.error(error);
     }

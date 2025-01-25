@@ -27,18 +27,50 @@ export default function Post() {
 
   const handleDeletePost = async (id) => {
     try {
-      const res = await dispatch(deletePost(id));
+      // Display a confirmation dialog
+      const result = await Swal.fire({
+        title: "Bạn có chắc chắn muốn xóa?",
+        text: "Thao tác này không thể hoàn tác!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+      });
 
-      if (res.error) {
-        return Swal.fire({
-          title: "Có lỗi xảy ra!",
-          icon: "error",
-          text: res.payload,
+      // If the user confirms
+      if (result.isConfirmed) {
+        const res = await dispatch(deletePost(id));
+
+        if (res.error) {
+          return Swal.fire({
+            title: "Có lỗi xảy ra!",
+            icon: "error",
+            text: res.payload,
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            background: "#f8d7da",
+            color: "#721c24",
+            position: "top-end",
+            toast: true,
+            customClass: {
+              popup: "animated bounceInUp",
+            },
+          });
+        }
+
+        // Success message
+        Swal.fire({
+          title: "Xóa thành công!",
+          icon: "success",
+          text: `Xóa bài viết thành công!`,
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-          background: "#f8d7da",
-          color: "#721c24",
+          background: "#d4edda",
+          color: "#155724",
           position: "top-end",
           toast: true,
           customClass: {
@@ -46,25 +78,11 @@ export default function Post() {
           },
         });
       }
-      Swal.fire({
-        title: "Xóa thành công!",
-        icon: "success",
-        text: `Xóa category thành công!`,
-        timer: 3000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-        background: "#d4edda",
-        color: "#155724",
-        position: "top-end",
-        toast: true,
-        customClass: {
-          popup: "animated bounceInUp",
-        },
-      });
     } catch (error) {
       console.error(error);
     }
   };
+
 
   const handleNavigate = () => {
     navigate("/posts/add");
@@ -93,8 +111,8 @@ export default function Post() {
     navigate(`/posts/comment/${id}`);
   };
   return (
-    <div className="space-y-4 p-4 sm:p-4">
-      <div className="content-scroll overflow-y-auto xl:max-h-[78vh] 2xl:max-h-[78vh] 2xl:min-h-[78vh]">
+    <div className="space-y-4 p-4 sm:px-4 ">
+      <div className="content-scroll overflow-y-auto xl:max-h-[75vh]  xl:min-h-[75vh]">
         <Table className="max-h-[100vh] min-w-full bg-background">
           <TableHeader>
             <TableRow>
