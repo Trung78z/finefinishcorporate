@@ -25,6 +25,10 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y sshpass
       
     - name: Deploy to VPS
+      env:
+        SSH_FINE_FINISH_PASSWORD: ${{ secrets.SSH_FINE_FINISH_PASSWORD }}
+        SSH_FINE_FINISH_USER: ${{ secrets.SSH_FINE_FINISH_USER }}
+        VPS_FINE_FINISH_HOST: ${{ secrets.VPS_FINE_FINISH_HOST }}
       run: |
         sshpass -p "${{ secrets.SSH_FINE_FINISH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_FINE_FINISH_USER }}@${{ secrets.VPS_FINE_FINISH_HOST }} -p 24700 << EOF
         echo "Connected to VPS"
