@@ -43,6 +43,7 @@ export default function PostEdit() {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
+  const [dataID, setDataID] = useState(null);
   const [category, setCategory] = useState({
     id: null,
     name: "",
@@ -66,7 +67,7 @@ export default function PostEdit() {
     const fetch = async () => {
       try {
         const resData = await getPostByIDService(idPost);
-
+        setDataID(resData.data.message);
         setPreview(`${API_URL}/api/image/${resData.data.message.image}`);
         setValue("title", resData.data.message.title);
         setValue("content", resData.data.message.content);
@@ -91,8 +92,8 @@ export default function PostEdit() {
       if (file) formData.append("image", file);
       formData.append("description", valueEditor);
       formData.append("categoryId", Number(data.categoryId));
-      formData.append("status", Number(data.status));
-      formData.append("outstanding", Number(data.outstanding));
+      formData.append("status", (dataID.status));
+      formData.append("outstanding", dataID.outstanding);
       formData.append("author", data.author);
 
       const response = await dispatch(editPost({ id: idPost, post: formData }));

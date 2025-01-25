@@ -15,7 +15,10 @@ app.use(
       "http://localhost:4000",
       "http://localhost:3000",
       "http://localhost:4173",
-      "http://web.com:5173"
+      "http://web.com:5173",
+      "https://admin.finefinishcorporate.com",
+      "https://www.finefinishcorporate.com",
+      "https://finefinishcorporate.com"
     ],
     credentials: true,
     optionsSuccessStatus: 200,
