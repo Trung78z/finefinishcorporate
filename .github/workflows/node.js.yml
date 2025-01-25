@@ -33,9 +33,10 @@ jobs:
         sshpass -p "${{ secrets.SSH_FINE_FINISH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_FINE_FINISH_USER }}@${{ secrets.VPS_FINE_FINISH_HOST }} -p 24700 << EOF
         echo "Connected to VPS"
         
-        source ~/.bashrc
-        node -v
-        npm -v
+        bash -l -c "
+          # Kiểm tra lại node và npm
+          node -v
+          npm -v
         
         cd /root/app
         git reset --hard HEAD
