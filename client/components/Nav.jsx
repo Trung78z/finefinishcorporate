@@ -10,8 +10,8 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { apiClient } from "@/services/apiService";
-const link1 = { path: "/", name: "home" };
-const link3 = { path: "/contact", name: "contact" };
+const link1 = { path: "/", name: "Trang Chủ" };
+const link3 = { path: "/contact", name: "Liên Hệ" };
 
 const Nav = ({ containerStyles, linkStyles, underlineStyles }) => {
   const path = usePathname();
